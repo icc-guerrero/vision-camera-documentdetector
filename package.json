@@ -1,6 +1,6 @@
 {
   "name": "vision-camera-documentdetector",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "React Native Vision Camera Document Scanner",
   "main": "src/index.tsx",
   "scripts": {
