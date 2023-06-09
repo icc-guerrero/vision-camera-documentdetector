@@ -1,11 +1,12 @@
 {
   "name": "vision-camera-documentdetector",
-  "version": "1.0.1",
+  "version": "1.0.0",
   "description": "React Native Vision Camera Document Scanner",
   "main": "src/index.tsx",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
-  "author": "Andrés GUERRERO (guerrero@unicc.org)",
-  "license": "ISC"
+  "author": "United Nations International Computing Centre (https://github.com/UN-ICC)",
+  "license": "MIT",
+  "homepage": "https://github.com/UN-ICC/vision-camera-documentdetector#readme"
 }
