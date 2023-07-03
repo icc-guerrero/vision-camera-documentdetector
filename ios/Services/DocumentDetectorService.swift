@@ -38,20 +38,21 @@ public class DocumentDetectorService: NSObject {
       result.updateValue(imageSize.width, forKey: "width")
       result.updateValue([0,0,0,0,0,0,0,0], forKey: "bounds")
       
-      var height = imageSize.width
-      var width = imageSize.height
+      var height = imageSize.height
+      var width = imageSize.width
       
         if #available(iOS 11.0, *) {
             VisionRectangleDetector.rectangle(forPixelBuffer: imageBuffer) { (rectangle) in
               
               if let rect = rectangle {
-                result.updateValue([Int(width - rect.topLeft.y), Int(height - rect.topLeft.x),
-                                    Int(width - rect.topRight.y), Int(height - rect.topRight.x),
-                                    Int(width - rect.bottomLeft.y), Int(height - rect.bottomLeft.x),
-                                    Int(width - rect.bottomRight.y), Int(height - rect.bottomRight.x),
+                result.updateValue([Int(rect.topLeft.x), Int(height - rect.topLeft.y),
+                                    Int(rect.topRight.x), Int(height - rect.topRight.y),
+                                    Int(rect.bottomLeft.x), Int(height - rect.bottomLeft.y),
+                                    Int(rect.bottomRight.x), Int(height - rect.bottomRight.y),
                                    ], forKey: "bounds")
-                result.updateValue(height, forKey: "height")
-                result.updateValue(width, forKey: "width")
+                result.updateValue(width, forKey: "height")
+                result.updateValue(height, forKey: "width")
+                result.updateValue(Int(rect.area()), forKey: "area")
               }
               
               
@@ -60,11 +61,14 @@ public class DocumentDetectorService: NSObject {
             let finalImage = CIImage(cvPixelBuffer: imageBuffer)
             CIRectangleDetector.rectangle(forImage: finalImage) { (rectangle) in
               if let rect = rectangle {
-                result.updateValue([Int(width - rect.topLeft.y), Int(height - rect.topLeft.x),
-                                    Int(width - rect.topRight.y), Int(height - rect.topRight.x),
-                                    Int(width - rect.bottomLeft.y), Int(height - rect.bottomLeft.x),
-                                    Int(width - rect.bottomRight.y), Int(height - rect.bottomRight.x),
+                result.updateValue([Int(rect.topLeft.x), Int(height - rect.topLeft.y),
+                                    Int(rect.topRight.x), Int(height - rect.topRight.y),
+                                    Int(rect.bottomLeft.x), Int(height - rect.bottomLeft.y),
+                                    Int(rect.bottomRight.x), Int(height - rect.bottomRight.y),
                                    ], forKey: "bounds")
+                result.updateValue(width, forKey: "height")
+                result.updateValue(height, forKey: "width")
+                result.updateValue(Int(rect.area()), forKey: "area")
               }
             }
         }

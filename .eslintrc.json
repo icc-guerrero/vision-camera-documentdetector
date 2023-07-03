@@ -1,0 +1,73 @@
+{
+    "root": true,
+    "env": {
+        "browser": true,
+        "es6": true,
+        "jest": true
+    },
+    "extends": [
+        "standard",
+        "plugin:react/recommended"
+    ],
+    "globals": {
+        "Atomics": "readonly",
+        "SharedArrayBuffer": "readonly",
+        "__DEV__": true
+    },
+    "parser": "@babel/eslint-parser",
+    "parserOptions": {
+        "requireConfigFile": "false",
+        "ecmaFeatures": {
+            "jsx": true
+        },
+        "ecmaVersion": 2020,
+        "sourceType": "module"
+    },
+    "plugins": [
+        "react"
+    ],
+    "rules": {
+        "strict": 0
+    },
+    "settings": {
+        "react": {
+            "version": "detect"
+        }
+    },
+    "overrides": [
+        {
+            "files": ["**/*.ts", "**/*.tsx"],
+            "env": { "browser": true, "es6": true, "node": true },
+            "extends": [
+                "eslint:recommended",
+                "plugin:@typescript-eslint/eslint-recommended",
+                "plugin:@typescript-eslint/recommended"
+            ],
+            "globals": { "Atomics": "readonly", "SharedArrayBuffer": "readonly" },
+            "parser": "@typescript-eslint/parser",
+            "parserOptions": {
+                "ecmaFeatures": { "jsx": true },
+                "ecmaVersion": 2020,
+                "sourceType": "module",
+                "project": "./tsconfig.json"
+            },
+            "plugins": ["@typescript-eslint"],
+            "rules": {
+                "indent": ["error", 2, { "SwitchCase": 1 }],
+                "linebreak-style": ["error", "unix"],
+                "quotes": ["error", "single"],
+                "comma-dangle": ["error", "always-multiline"],
+                "no-use-before-define": "off",
+                "@typescript-eslint/no-use-before-define": ["error"],
+                "@typescript-eslint/no-explicit-any": 0,
+                "@typescript-eslint/no-this-alias": [
+                    "error",
+                    {
+                        "allowDestructuring": false, // Disallow `const { props, state } = this`; true by default
+                        "allowedNames": ["self"] // Allow `const self = this`; `[]` by default
+                    }
+                ]
+            }
+        }
+    ]
+}

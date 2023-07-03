@@ -53,7 +53,7 @@ public struct Quadrilateral: Transformable {
         self.bottomLeft = rectangleFeature.bottomLeft
         self.bottomRight = rectangleFeature.bottomRight
     }
-
+  
     @available(iOS 11.0, *)
     init(rectangleObservation: VNRectangleObservation) {
         self.topLeft = rectangleObservation.topLeft
@@ -154,7 +154,7 @@ public struct Quadrilateral: Transformable {
         var transformedQuad = self
         let invertedFromSizeWidth = invertedfromSize.width == 0 ? .leastNormalMagnitude : invertedfromSize.width
         
-        let scale = toSize.width / invertedFromSizeWidth
+        var scale = toSize.width / invertedFromSizeWidth
         let scaledTransform = CGAffineTransform(scaleX: scale, y: scale)
         transformedQuad = transformedQuad.applying(scaledTransform)
         
@@ -209,6 +209,35 @@ extension Quadrilateral {
         let bottomLeft = self.bottomLeft.cartesian(withHeight: height)
         
         return Quadrilateral(topLeft: topLeft, topRight: topRight, bottomRight: bottomRight, bottomLeft: bottomLeft)
+    }
+  
+    func extended(_ percentage: CGFloat) -> Quadrilateral {
+        let topLeft = CGPoint(x: self.topLeft.x - self.topLeft.x * percentage/100,
+                              y: self.topLeft.y + self.topLeft.y * percentage/100)
+        let bottomLeft = CGPoint(x: self.bottomLeft.x - self.bottomLeft.x * percentage/100,
+                                 y: self.bottomLeft.y - self.bottomLeft.y * percentage/100)
+        let topRight = CGPoint(x: self.topRight.x + self.topRight.x * percentage/100,
+                               y: self.topRight.y + self.topRight.y * percentage/100)
+        let bottomRight = CGPoint(x: self.bottomRight.x + self.bottomRight.x * percentage/100,
+                                y: self.bottomRight.y + self.bottomRight.y * percentage/100)
+        
+        return Quadrilateral(topLeft: topLeft, topRight: topRight, bottomRight: bottomRight, bottomLeft: bottomLeft)
+    }
+  
+  
+    func area() -> Double {
+      let p1 = topLeft
+      let p2 = topRight
+      let p3 = bottomLeft
+      let p4 = bottomRight
+      let vector1 = CGVector(dx: p2.x - p1.x, dy: p2.y - p1.y)
+      let vector2 = CGVector(dx: p3.x - p1.x, dy: p3.y - p1.y)
+      let vector3 = CGVector(dx: p4.x - p1.x, dy: p4.y - p1.y)
+
+      let crossProduct = vector2.dx * vector3.dy - vector2.dy * vector3.dx
+
+      let area = abs(crossProduct) / 2.0
+      return area
     }
 }
 

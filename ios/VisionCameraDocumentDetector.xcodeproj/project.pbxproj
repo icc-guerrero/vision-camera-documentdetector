@@ -8,9 +8,9 @@
 
 /* Begin PBXBuildFile section */
 		6EF4C751286C855200407526 /* DocumentDetectorFrameProcessorPlugin.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6EF4C750286C855200407526 /* DocumentDetectorFrameProcessorPlugin.swift */; };
+		FE238C292A45E7BD00D33426 /* DocumentDetectorManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE238C282A45E7BA00D33426 /* DocumentDetectorManager.swift */; };
 		FEE233E02A33703500270F88 /* Transformable.swift in Sources */ = {isa = PBXBuildFile; fileRef = FEE233CE2A33703500270F88 /* Transformable.swift */; };
 		FEE233E12A33703500270F88 /* AVCaptureVideoOrientation+Utils.swift in Sources */ = {isa = PBXBuildFile; fileRef = FEE233CF2A33703500270F88 /* AVCaptureVideoOrientation+Utils.swift */; };
-		FEE233E22A33703500270F88 /* EditScanCornerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FEE233D02A33703500270F88 /* EditScanCornerView.swift */; };
 		FEE233E32A33703500270F88 /* Error.swift in Sources */ = {isa = PBXBuildFile; fileRef = FEE233D12A33703500270F88 /* Error.swift */; };
 		FEE233E42A33703500270F88 /* CGPoint+Utils.swift in Sources */ = {isa = PBXBuildFile; fileRef = FEE233D22A33703500270F88 /* CGPoint+Utils.swift */; };
 		FEE233E52A33703500270F88 /* CGSize+Utils.swift in Sources */ = {isa = PBXBuildFile; fileRef = FEE233D32A33703500270F88 /* CGSize+Utils.swift */; };
@@ -23,7 +23,6 @@
 		FEE233EC2A33703500270F88 /* Array+Utils.swift in Sources */ = {isa = PBXBuildFile; fileRef = FEE233DA2A33703500270F88 /* Array+Utils.swift */; };
 		FEE233ED2A33703500270F88 /* UIImage+Orientation.swift in Sources */ = {isa = PBXBuildFile; fileRef = FEE233DB2A33703500270F88 /* UIImage+Orientation.swift */; };
 		FEE233EE2A33703500270F88 /* UIImage+Utils.swift in Sources */ = {isa = PBXBuildFile; fileRef = FEE233DC2A33703500270F88 /* UIImage+Utils.swift */; };
-		FEE233EF2A33703500270F88 /* QuadrilateralView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FEE233DD2A33703500270F88 /* QuadrilateralView.swift */; };
 		FEE233F02A33703500270F88 /* Quadrilateral.swift in Sources */ = {isa = PBXBuildFile; fileRef = FEE233DE2A33703500270F88 /* Quadrilateral.swift */; };
 		FEE233F12A33703500270F88 /* DocumentDetectorService.swift in Sources */ = {isa = PBXBuildFile; fileRef = FEE233DF2A33703500270F88 /* DocumentDetectorService.swift */; };
 /* End PBXBuildFile section */
@@ -45,9 +44,9 @@
 		6EF4C750286C855200407526 /* DocumentDetectorFrameProcessorPlugin.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DocumentDetectorFrameProcessorPlugin.swift; sourceTree = "<group>"; };
 		B3E7B5891CC2AC0600A0062D /* VisionCameraDocumentDetector.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VisionCameraDocumentDetector.m; sourceTree = "<group>"; };
 		F4FF95D5245B92E700C19C63 /* VisionCameraDocumentDetector-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "VisionCameraDocumentDetector-Bridging-Header.h"; sourceTree = "<group>"; };
+		FE238C282A45E7BA00D33426 /* DocumentDetectorManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DocumentDetectorManager.swift; sourceTree = "<group>"; };
 		FEE233CE2A33703500270F88 /* Transformable.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Transformable.swift; sourceTree = "<group>"; };
 		FEE233CF2A33703500270F88 /* AVCaptureVideoOrientation+Utils.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "AVCaptureVideoOrientation+Utils.swift"; sourceTree = "<group>"; };
-		FEE233D02A33703500270F88 /* EditScanCornerView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EditScanCornerView.swift; sourceTree = "<group>"; };
 		FEE233D12A33703500270F88 /* Error.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Error.swift; sourceTree = "<group>"; };
 		FEE233D22A33703500270F88 /* CGPoint+Utils.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "CGPoint+Utils.swift"; sourceTree = "<group>"; };
 		FEE233D32A33703500270F88 /* CGSize+Utils.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "CGSize+Utils.swift"; sourceTree = "<group>"; };
@@ -60,7 +59,6 @@
 		FEE233DA2A33703500270F88 /* Array+Utils.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Array+Utils.swift"; sourceTree = "<group>"; };
 		FEE233DB2A33703500270F88 /* UIImage+Orientation.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIImage+Orientation.swift"; sourceTree = "<group>"; };
 		FEE233DC2A33703500270F88 /* UIImage+Utils.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIImage+Utils.swift"; sourceTree = "<group>"; };
-		FEE233DD2A33703500270F88 /* QuadrilateralView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = QuadrilateralView.swift; sourceTree = "<group>"; };
 		FEE233DE2A33703500270F88 /* Quadrilateral.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Quadrilateral.swift; sourceTree = "<group>"; };
 		FEE233DF2A33703500270F88 /* DocumentDetectorService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DocumentDetectorService.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -92,6 +90,7 @@
 				FEE233F22A33705900270F88 /* Extensions */,
 				FEE233CD2A33703500270F88 /* Common */,
 				6EF4C750286C855200407526 /* DocumentDetectorFrameProcessorPlugin.swift */,
+				FE238C282A45E7BA00D33426 /* DocumentDetectorManager.swift */,
 				B3E7B5891CC2AC0600A0062D /* VisionCameraDocumentDetector.m */,
 				F4FF95D5245B92E700C19C63 /* VisionCameraDocumentDetector-Bridging-Header.h */,
 				134814211AA4EA7D00B7C361 /* Products */,
@@ -101,13 +100,11 @@
 		FEE233CD2A33703500270F88 /* Common */ = {
 			isa = PBXGroup;
 			children = (
-				FEE233D02A33703500270F88 /* EditScanCornerView.swift */,
 				FEE233D12A33703500270F88 /* Error.swift */,
 				FEE233D42A33703500270F88 /* VisionRectangleDetector.swift */,
 				FEE233D52A33703500270F88 /* CGImagePropertyOrientation.swift */,
 				FEE233D92A33703500270F88 /* CIRectangleDetector.swift */,
 				FEE233DB2A33703500270F88 /* UIImage+Orientation.swift */,
-				FEE233DD2A33703500270F88 /* QuadrilateralView.swift */,
 				FEE233DE2A33703500270F88 /* Quadrilateral.swift */,
 			);
 			path = Common;
@@ -209,10 +206,9 @@
 				FEE233E42A33703500270F88 /* CGPoint+Utils.swift in Sources */,
 				FEE233EC2A33703500270F88 /* Array+Utils.swift in Sources */,
 				FEE233F02A33703500270F88 /* Quadrilateral.swift in Sources */,
+				FE238C292A45E7BD00D33426 /* DocumentDetectorManager.swift in Sources */,
 				FEE233EA2A33703500270F88 /* CGRect+Utils.swift in Sources */,
-				FEE233E22A33703500270F88 /* EditScanCornerView.swift in Sources */,
 				FEE233F12A33703500270F88 /* DocumentDetectorService.swift in Sources */,
-				FEE233EF2A33703500270F88 /* QuadrilateralView.swift in Sources */,
 				FEE233EB2A33703500270F88 /* CIRectangleDetector.swift in Sources */,
 				FEE233E32A33703500270F88 /* Error.swift in Sources */,
 				FEE233EE2A33703500270F88 /* UIImage+Utils.swift in Sources */,

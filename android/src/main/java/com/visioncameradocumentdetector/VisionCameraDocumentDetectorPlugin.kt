@@ -3,6 +3,8 @@ package com.visioncameradocumentdetector
 import android.annotation.SuppressLint
 import android.graphics.*
 import android.media.Image
+import android.os.Build
+import androidx.annotation.RequiresApi
 import androidx.camera.core.ImageProxy
 import com.facebook.react.bridge.WritableNativeArray
 import com.facebook.react.bridge.WritableNativeMap
@@ -22,7 +24,7 @@ class VisionCameraDocumentDetectorPlugin: FrameProcessorPlugin("documentDetector
   val CANNY_THRESH_U = 185.0
   val CUTOFF_THRESH = 155.0
   var KSIZE_CLOSE = 10.0
-  val CROP_THRESH = 20f
+  val CROP_THRESH = 0f
   private val morph_kernel = Mat(Size(KSIZE_CLOSE, KSIZE_CLOSE), CvType.CV_8UC1, Scalar(255.0))
 
   fun imageProxyToMat(imageProxy: ImageProxy): Mat {
@@ -49,29 +51,7 @@ class VisionCameraDocumentDetectorPlugin: FrameProcessorPlugin("documentDetector
     return point
   }
 
-  private fun sortPoints(src: Array<Point>): Array<Point> {
-    val srcPoints: List<Point> = src.toList()
 
-    val result = arrayOf<Point?>(null, null, null, null)
-
-    val sumComparator = Comparator<Point> { lhs, rhs ->
-      (lhs.y + lhs.x).compareTo(rhs.y + rhs.x)
-    }
-
-    val diffComparator = Comparator<Point> { lhs, rhs ->
-      (lhs.y - lhs.x).compareTo(rhs.y - rhs.x)
-    }
-
-    // top-left corner = minimal sum
-    result[0] = Collections.min(srcPoints, sumComparator)
-    // bottom-right corner = maximal sum
-    result[2] = Collections.max(srcPoints, sumComparator)
-    // top-right corner = minimal difference
-    result[1] = Collections.min(srcPoints, diffComparator)
-    // bottom-left corner = maximal difference
-    result[3] = Collections.max(srcPoints, diffComparator)
-    return result as Array<Point>
-  }
 
   private fun findQuadrilateral(mContourList: List<MatOfPoint>): Quadrilateral? {
     for (c in mContourList) {
@@ -127,7 +107,6 @@ class VisionCameraDocumentDetectorPlugin: FrameProcessorPlugin("documentDetector
   }
 
   fun detectLargestQuadrilateral(originalMat: Mat): Quadrilateral? {
-//    Imgproc.cvtColor(originalMat, originalMat, Imgproc.COLOR_BGR2GRAY, 4)
 
     // Just OTSU/Binary thresholding is not enough.
     //Imgproc.threshold(mGrayMat, mGrayMat, 150, 255, THRESH_BINARY + THRESH_OTSU);
@@ -195,10 +174,12 @@ class VisionCameraDocumentDetectorPlugin: FrameProcessorPlugin("documentDetector
   }
 
 
+  @RequiresApi(Build.VERSION_CODES.LOLLIPOP)
   override fun callback(frame: ImageProxy, params: Array<Any>): Any? {
     @SuppressLint("UnsafeOptInUsageError")
 
     val mediaImage: Image? = frame.image
+
 
     var map = WritableNativeMap()
 
@@ -206,6 +187,8 @@ class VisionCameraDocumentDetectorPlugin: FrameProcessorPlugin("documentDetector
       if (it.format == ImageFormat.YUV_420_888
         && it.planes.size == 3
       ) {
+        val height = frame.height
+        val width = frame.width
         val originalMat = imageProxyToMat(frame)
         val outputBitmap = Bitmap.createBitmap(originalMat.cols(), originalMat.rows(), Bitmap.Config.ARGB_8888)
         var points: ArrayList<PointF> = ArrayList()
@@ -218,10 +201,10 @@ class VisionCameraDocumentDetectorPlugin: FrameProcessorPlugin("documentDetector
               val previewArea: Double = (originalMat.rows() * originalMat.cols()).toDouble()
               if (resultArea > previewArea * 0.08) {
                 points = ArrayList()
-                points.add(PointF(it.points.get(0).x.toFloat()-CROP_THRESH, it.points.get(0).y.toFloat()-CROP_THRESH))
-                points.add(PointF(it.points.get(1).x.toFloat()+CROP_THRESH, it.points.get(1).y.toFloat()-CROP_THRESH))
-                points.add(PointF(it.points.get(3).x.toFloat()-CROP_THRESH, it.points.get(3).y.toFloat()+CROP_THRESH))
-                points.add(PointF(it.points.get(2).x.toFloat()+CROP_THRESH, it.points.get(2).y.toFloat()+CROP_THRESH))
+                points.add(PointF((height-it.points.get(0).y).toFloat()-CROP_THRESH, (it.points.get(0).x).toFloat()-CROP_THRESH))
+                points.add(PointF((height-it.points.get(1).y).toFloat()+CROP_THRESH, (it.points.get(1).x).toFloat()-CROP_THRESH))
+                points.add(PointF((height-it.points.get(3).y).toFloat()-CROP_THRESH, (it.points.get(3).x).toFloat()+CROP_THRESH))
+                points.add(PointF((height-it.points.get(2).y).toFloat()+CROP_THRESH, (it.points.get(2).x).toFloat()+CROP_THRESH))
               } else {
                 points = getPolygonDefaultPoints(outputBitmap)
               }

@@ -1,14 +1,28 @@
-//
-//  UIImage+Utils.swift
-//  WeScan
-//
-//  Created by Bobo on 5/25/18.
-//  Copyright © 2018 WeTransfer. All rights reserved.
-//
+
 
 import Foundation
 
 extension UIImage {
+  
+    func flattenImage(topLeft: CGPoint, topRight: CGPoint, bottomLeft: CGPoint, bottomRight: CGPoint) -> CIImage {
+        let docImage = CIImage(image:self)
+        let rect = CGRect(origin: CGPoint.zero, size: self.size)
+        let perspectiveCorrection = CIFilter(name: "CIPerspectiveCorrection")!
+        perspectiveCorrection.setValue(CIVector(cgPoint: self.cartesianForPoint(point: topLeft, extent: rect)), forKey: "inputTopLeft")
+        perspectiveCorrection.setValue(CIVector(cgPoint: self.cartesianForPoint(point: topRight, extent: rect)), forKey: "inputTopRight")
+        perspectiveCorrection.setValue(CIVector(cgPoint: self.cartesianForPoint(point: bottomLeft, extent: rect)), forKey: "inputBottomLeft")
+        perspectiveCorrection.setValue(CIVector(cgPoint: self.cartesianForPoint(point: bottomRight, extent: rect)), forKey: "inputBottomRight")
+        perspectiveCorrection.setValue(docImage, forKey: kCIInputImageKey)
+        
+        return perspectiveCorrection.outputImage!
+    }
+    
+  
+    func cartesianForPoint(point:CGPoint,extent:CGRect) -> CGPoint {
+       // return CGPoint(x: point.x,y: extent.height - point.y)
+      return point
+    }
+  
     /// Creates a UIImage from the specified CIImage.
     static func from(ciImage: CIImage) -> UIImage {
         if let cgImage = CIContext(options: nil).createCGImage(ciImage, from: ciImage.extent) {
@@ -17,6 +31,36 @@ extension UIImage {
             return UIImage(ciImage: ciImage, scale: 1.0, orientation: .up)
         }
     }
+  
+    func rotate() -> UIImage? {
+        guard let cgImage = self.cgImage else { return nil }
+        
+        let rotationInRadians = CGFloat.pi / 2
+        let transform = CGAffineTransform(rotationAngle: rotationInRadians)
+        let cgImageSize = CGSize(width: cgImage.width, height: cgImage.height)
+        var rect = CGRect(origin: .zero, size: cgImageSize).applying(transform)
+        rect.origin = .zero
+        
+        let format = UIGraphicsImageRendererFormat()
+        format.scale = 1
+        
+        let renderer = UIGraphicsImageRenderer(size: rect.size, format: format)
+        
+        let image = renderer.image { renderContext in
+            renderContext.cgContext.translateBy(x: rect.midX, y: rect.midY)
+            renderContext.cgContext.rotate(by: rotationInRadians)
+            
+            let x = 1.0
+            let y = -1.0
+            renderContext.cgContext.scaleBy(x: CGFloat(x), y: CGFloat(y))
+            
+            let drawRect = CGRect(origin: CGPoint(x: -cgImageSize.width / 2.0, y: -cgImageSize.height / 2.0), size: cgImageSize)
+            renderContext.cgContext.draw(cgImage, in: drawRect)
+        }
+        
+        return image
+    }
+  
     
     /// Draws a new cropped and scaled (zoomed in) image.
     ///

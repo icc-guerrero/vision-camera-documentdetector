@@ -21,7 +21,8 @@ enum VisionRectangleDetector {
                     completion(nil)
                     return
                 }
-
+              let padding = 10.0
+              
                 let quads: [Quadrilateral] = results.map(Quadrilateral.init)
 
                 guard let biggest = quads.biggest() else { // This can't fail because the earlier guard protected against an empty array, but we use guard because of SwiftLint

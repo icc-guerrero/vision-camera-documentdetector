@@ -1,8 +1,8 @@
-import type { Frame } from 'react-native-vision-camera';
+import type { Frame } from 'react-native-vision-camera'
 
-
-export function faceDetector(frame: Frame): any {
-  'worklet';
+export function faceDetector (frame: Frame): any {
+  'worklet'
+  // eslint-disable-next-line @typescript-eslint/ban-ts-comment
   // @ts-ignore
-  return __faceDetector(frame);
+  return __faceDetector(frame)
 }
